@@ -6,10 +6,10 @@ Linear kernel gave a training accuracy of 93.28%,quadratic kernel gave a trainin
 Explanation:-
 
 1) For linear kernel function, optimal C value was found out to be 1.At this C value, a test accuracy of 93.26% was obtained.
-2) For quadratic kernel function, test accuracy kept increasing with increase in the value of C.At C=100000, a test accuracy of 89.9% was obtained.
+2) For quadratic kernel function, test accuracy kept increasing with increase in the value of C.At C=100000, a test accuracy of 89.9% was obtained.C = 100000 was the optimal value which gave highest accuracy.
    However, training was stopped at C=100000 since increasing the C value further could have resulting in slight overfitting and not doing well for the new data and penalizing the misclassified points heavily.
    
-3) For RBF kernel function, test accuracy kept increasing with increase in the value of C. At c=100000, an accuracy of 94.67% was obtained.
+3) For RBF kernel function, test accuracy kept increasing with increase in the value of C. At c=100000, an accuracy of 94.67% was obtained.C = 100000 was the optimal value which gave highest accuracy.
    However, training was stopped at C=100000 since increasing the C value further could have resulting in slight overfitting and not doing well for the new data and penalizing the misclassified points heavily.
    
 

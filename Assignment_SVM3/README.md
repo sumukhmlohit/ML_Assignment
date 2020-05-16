@@ -7,11 +7,11 @@ Explanation:-
 
 1) For linear kernel function, optimal C value was found out to be 1.At this C value, a test accuracy of 93.26% was obtained.
 2) For quadratic kernel function, test accuracy kept increasing with increase in the value of C.At C=100000, a test accuracy of 89.9% was obtained.C = 100000 was the optimal value which gave highest accuracy.
-   However, training was stopped at C=100000 since increasing the C value further could have resulting in slight overfitting and not doing well for the new data and penalizing the misclassified points heavily.
+   Increasing the C value further decreased the accuracy. This could have been due to slight overfitting and penalizing the misclassified points heavily.
    
 3) For RBF kernel function, test accuracy kept increasing with increase in the value of C. At c=100000, an accuracy of 94.67% was obtained.C = 100000 was the optimal value which gave highest accuracy.
-   However, training was stopped at C=100000 since increasing the C value further could have resulting in slight overfitting and not doing well for the new data and penalizing the misclassified points heavily.
+   Increasing the C value further decreased the accuracy. This could have resulting in slight overfitting and and penalizing the misclassified points heavily.
    
 
   On applying all the 3 kernel functions, it was found that RBF kernel gave the best accuracy.
-  However, linear kernel function suffers least from the problem of overfitting since it gave an optimal accuracy value at C=1 itself and it gave a good accuracy of 93.26%.
+  However, linear kernel function also does pretty well since it gave an it gave a good accuracy of 93.26% (optimal accuracy value) at C=1 itself.

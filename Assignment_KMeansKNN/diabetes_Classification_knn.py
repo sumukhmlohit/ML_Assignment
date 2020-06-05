@@ -232,7 +232,63 @@ class KNN:
 
 
 
-get_ipython().run_cell_magic('time', '', "for i in range (1,50):\n    #if i%2!=0:\n    p=2\n    clf = KNN(features=X_train, labels=Y_train, k=i,p=2)\n    preds = clf.predict(test_set=X_test)\n    trainpreds=clf.predict(test_set=X_train)\n    \n    print('For training:')\n    mat=clf.confusion_matrix(Y_train,trainpreds)\n    TP=mat[0][0]\n    FP=mat[0][1]\n    FN=mat[1][0]\n    TN=mat[1][1]\n    accuracy=(TP+TN)/(TP+TN+FP+FN)\n    precision=(TP)/(TP+FP)\n    recall=(TP)/(TP+FN)\n    f1=(2*TP)/(2*TP+FP+FN)\n    print(accuracy)\n    print(precision)\n    print(recall)\n    print(f1)\n    train_accuracy.append(accuracy)\n\n    trainpreclist.append(precision)\n    trainreclist.append(recall)\n    trainf1list.append(f1)\n    if accuracy>trainmax_acc:\n        trainmax_acc=accuracy\n        trainmax_recall=recall\n        trainmax_prec=precision\n        trainmax_f1=f1\n        trainmax_k=k\n    \n    print('For testing:')\n    mat=clf.confusion_matrix(Y_test,preds)\n    TP=mat[0][0]\n    FP=mat[0][1]\n    FN=mat[1][0]\n    TN=mat[1][1]\n    accuracy=(TP+TN)/(TP+TN+FP+FN)\n    precision=(TP)/(TP+FP)\n    recall=(TP)/(TP+FN)\n    f1=(2*TP)/(2*TP+FP+FN)\n    print(accuracy)\n    print(precision)\n    print(recall)\n    print(f1)\n    test_accuracy.append(accuracy)\n    preclist.append(precision)\n    reclist.append(recall)\n    f1list.append(f1)\n    if accuracy>max_acc:\n        max_acc=accuracy\n        max_recall=recall\n        max_prec=precision\n        max_f1=f1\n        max_k=i")
+for i in range (1,50):
+    #if i%2!=0:
+    p=2
+    clf = KNN(features=X_train, labels=Y_train, k=i,p=2)
+    preds = clf.predict(test_set=X_test)
+    trainpreds=clf.predict(test_set=X_train)
+    
+    print('For training:')
+    mat=clf.confusion_matrix(Y_train,trainpreds)
+    TP=mat[0][0]
+    FP=mat[0][1]
+    FN=mat[1][0]
+    TN=mat[1][1]
+    accuracy=(TP+TN)/(TP+TN+FP+FN)
+    precision=(TP)/(TP+FP)
+    recall=(TP)/(TP+FN)
+    f1=(2*TP)/(2*TP+FP+FN)
+    print(accuracy)
+    print(precision)
+    print(recall)
+    print(f1)
+    train_accuracy.append(accuracy)
+
+    trainpreclist.append(precision)
+    trainreclist.append(recall)
+    trainf1list.append(f1)
+    if accuracy>trainmax_acc:
+        trainmax_acc=accuracy
+        trainmax_recall=recall
+        trainmax_prec=precision
+        trainmax_f1=f1
+        trainmax_k=k
+    
+    print('For testing:')
+    mat=clf.confusion_matrix(Y_test,preds)
+    TP=mat[0][0]
+    FP=mat[0][1]
+    FN=mat[1][0]
+    TN=mat[1][1]
+    accuracy=(TP+TN)/(TP+TN+FP+FN)
+    precision=(TP)/(TP+FP)
+    recall=(TP)/(TP+FN)
+    f1=(2*TP)/(2*TP+FP+FN)
+    print(accuracy)
+    print(precision)
+    print(recall)
+    print(f1)
+    test_accuracy.append(accuracy)
+    preclist.append(precision)
+    reclist.append(recall)
+    f1list.append(f1)
+    if accuracy>max_acc:
+        max_acc=accuracy
+        max_recall=recall
+        max_prec=precision
+        max_f1=f1
+        max_k=i
 
 
 # In[17]:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[50]:
 
 
 import pandas as pd
@@ -14,19 +14,19 @@ dia_data=diab_data.to_numpy()
 print(diab_data.head())
 
 
-# In[2]:
+# In[51]:
 
 
 print(diab_data.shape)
 
 
-# In[3]:
+# In[52]:
 
 
 diab_data.head()
 
 
-# In[4]:
+# In[53]:
 
 
 # Seaborn visualization library
@@ -35,7 +35,7 @@ import seaborn as sns
 #sns.pairplot(diab_data,hue='Outcome')
 
 
-# In[5]:
+# In[54]:
 
 
 def clean_dataset(df):
@@ -47,7 +47,7 @@ def clean_dataset(df):
 clean_dataset(diab_data)
 
 
-# In[6]:
+# In[55]:
 
 
 #mini-max-normalization
@@ -57,7 +57,7 @@ diab_data = (diab_data - diab_data.mean())/diab_data.std()
 #Since z-score normalization gave a higher test acuuracy than min-max normalization,z-score normalization was selected.
 
 
-# In[7]:
+# In[56]:
 
 
 # Seaborn visualization library
@@ -66,13 +66,13 @@ import seaborn as sns
 sns.pairplot(diab_data,hue='Outcome')
 
 
-# In[8]:
+# In[57]:
 
 
 #It can be seen that the dataset is not easily linearly seperable 
 
 
-# In[9]:
+# In[58]:
 
 
 #Pearson Correlation Coefficient Heatmap was created on the dataset to analyze  which were the most important features.
@@ -83,7 +83,7 @@ sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
 plt.show()
 
 
-# In[10]:
+# In[59]:
 
 
 #Feature Ablation Study
@@ -92,13 +92,13 @@ plt.show()
 #The three least important features-BloodPressure, SkinThickness and Insulin were removed and it was observed that the test accuracy improved significantly.
 
 
-# In[11]:
+# In[60]:
 
 
 diab_data=diab_data.drop(columns={'BloodPressure','SkinThickness','Insulin'})
 
 
-# In[12]:
+# In[74]:
 
 
 def train_test_split1(dataset, test_size=0.3, random_state=1):
@@ -118,7 +118,7 @@ def train_test_split1(dataset, test_size=0.3, random_state=1):
 X_train, X_test, Y_train, Y_test = train_test_split1(diab_data, test_size=0.3, random_state=1)
 
 
-# In[13]:
+# In[75]:
 
 
 #PCA resulted in a significant loss of accuracy. So,PCA was not applied.
@@ -128,14 +128,14 @@ X_train, X_test, Y_train, Y_test = train_test_split1(diab_data, test_size=0.3, r
 #pca.fit(X_train)
 
 
-# In[14]:
+# In[76]:
 
 
 #X_train = pca.transform(X_train)
 #X_test = pca.transform(X_test)
 
 
-# In[15]:
+# In[77]:
 
 
 train_accuracy=[]
@@ -228,7 +228,7 @@ class KNN:
  
 
 
-# In[16]:
+# In[78]:
 
 
 
@@ -291,7 +291,7 @@ for i in range (1,50):
         max_k=i
 
 
-# In[17]:
+# In[79]:
 
 
 print(klist)
@@ -310,7 +310,7 @@ print(klist)
 print(test_accuracy)
 
 
-# In[18]:
+# In[80]:
 
 
 plt.plot(klist, train_accuracy)
@@ -323,7 +323,7 @@ plt.title('Training accuracy vs k')
 plt.show()
 
 
-# In[19]:
+# In[81]:
 
 
 plt.plot(klist, trainf1list)
@@ -336,7 +336,7 @@ plt.title('Training F1 score vs k')
 plt.show()
 
 
-# In[20]:
+# In[82]:
 
 
 plt.plot(klist, test_accuracy)
@@ -349,7 +349,7 @@ plt.title('Test accuracy vs k')
 plt.show()
 
 
-# In[21]:
+# In[83]:
 
 
 plt.plot(klist, f1list)
@@ -362,7 +362,7 @@ plt.title('Test F1-score vs k')
 plt.show()
 
 
-# In[22]:
+# In[84]:
 
 
 print('At optimal value of k for testing, the following were the metrics:')
@@ -378,7 +378,7 @@ print('k:')
 print(max_k)
 
 
-# In[23]:
+# In[85]:
 
 
 #At optimal value of k(k=49),the following were the results of the train metrics
@@ -404,4 +404,66 @@ print('Recall')
 print(recall)
 print('F1-score')
 print(f1)
+
+
+# In[93]:
+
+
+#For Manhattan distance
+max_acc=0
+for i in range (1,50):
+    #if i%2!=0:
+    p=1
+    clf = KNN(features=X_train, labels=Y_train, k=i,p=1)
+    preds = clf.predict(test_set=X_test)
+    trainpreds=clf.predict(test_set=X_train)
+    
+    print('For training:')
+    mat=clf.confusion_matrix(Y_train,trainpreds)
+    TP=mat[0][0]
+    FP=mat[0][1]
+    FN=mat[1][0]
+    TN=mat[1][1]
+    accuracy=(TP+TN)/(TP+TN+FP+FN)
+    precision=(TP)/(TP+FP)
+    recall=(TP)/(TP+FN)
+    f1=(2*TP)/(2*TP+FP+FN)
+    print(accuracy)
+    print(precision)
+    print(recall)
+    print(f1)
+
+    if accuracy>trainmax_acc:
+        trainmax_acc=accuracy
+        trainmax_recall=recall
+        trainmax_prec=precision
+        trainmax_f1=f1
+        trainmax_k=k
+    
+    print('For testing:')
+    mat=clf.confusion_matrix(Y_test,preds)
+    TP=mat[0][0]
+    FP=mat[0][1]
+    FN=mat[1][0]
+    TN=mat[1][1]
+    accuracy=(TP+TN)/(TP+TN+FP+FN)
+    precision=(TP)/(TP+FP)
+    recall=(TP)/(TP+FN)
+    f1=(2*TP)/(2*TP+FP+FN)
+    print(accuracy)
+    print(precision)
+    print(recall)
+    print(f1)
+    if accuracy>max_acc:
+        max_acc=accuracy
+        max_recall=recall
+        max_prec=precision
+        max_f1=f1
+        max_k=i
+
+
+# In[94]:
+
+print('Max accuracy for Manhattan distance')
+print(max_acc)
 

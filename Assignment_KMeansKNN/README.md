@@ -9,5 +9,5 @@ Steps performed:-
 1)z-score normalization was applied since it gave a higher accuracy than min-max normalization.
 2)Euclidean distance and Manhattan distance were applied as distance metrics. Euclidean distance gave max test accuracy of 85.13% while Manhattan distance gave a test accuracy of 72.07%.
   So,Euclidean distance was used.
-3)Feature ablation study was also performed.It was observed that 'Insulin','BloodPressure' and 'SkinThickness' were the least important features.
+3)Feature ablation study was also performed.It was observed that 'Insulin','BloodPressure' and 'SkinThickness' were the least important features from the Pearson's Correlation Coefficient heatmap.
   Hence, they were removed and accuracy increases substantially.
